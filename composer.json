@@ -1,8 +1,13 @@
 {
-    "name": "miguelcr/supilo-plugin",
+    "name": "miguelcr85/octobercms-plugin-supilo",
     "type": "october-plugin",
-    "description": "No description provided yet...",
-    "require": {
-        "composer/installers": "~1.0"
-    }
+    "description": "Plugin Supilo para OctoberCMS",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "miguelcr",
+            "email": "mcramirez21.12.85@gmail.com"
+        }
+    ],
+    "require": {}
 }
