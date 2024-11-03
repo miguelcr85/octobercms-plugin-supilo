@@ -3,6 +3,12 @@
     "type": "october-plugin",
     "description": "Plugin Supilo para OctoberCMS",
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/miguelcr85/octobercms-plugin-supilo"
+        }
+    ],
     "authors": [
         {
             "name": "miguelcr",
