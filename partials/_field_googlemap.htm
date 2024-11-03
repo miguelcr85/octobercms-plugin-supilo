@@ -1,0 +1,60 @@
+<div id="map" style="width: 100%; height: 400px;"></div>
+
+<!-- Campos ocultos para latitud y longitud 
+<input type="hidden" id="latitude" name="Product[latitude]" value="{{ formModel.latitude }}">
+<input type="hidden" id="longitude" name="Product[longitude]" value="{{ formModel.longitude }}">
+-->
+<!-- Cargar Google Maps API -->
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Coordenadas iniciales (ej. Nueva York)
+        const initialLat = -34.90653098860914;
+        const initialLng = -56.186109781265266;
+        
+        // Inicializar el mapa
+        const map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: initialLat, lng: initialLng },
+            zoom: 13,
+        });
+
+        // Crear marcador arrastrable
+        const marker = new google.maps.Marker({
+            position: { lat: initialLat, lng: initialLng },
+            map: map,
+            draggable: true,
+        });
+
+        // Actualizar los campos latitud y longitud cuando se mueva el marcador
+        marker.addListener('dragend', function() {
+            const position = marker.getPosition();
+            document.getElementById('Form-field-Product-latitude').value = position.lat();
+            document.getElementById('Form-field-Product-longitude').value = position.lng();
+        });
+
+        // Configurar autocompletado de dirección usando la API de Places
+        const addressInput = document.getElementById("Form-field-Product-address");
+        const autocomplete = new google.maps.places.Autocomplete(addressInput);
+
+        // Al seleccionar una dirección, centrar el mapa y actualizar los campos
+        autocomplete.addListener("place_changed", () => {
+            const place = autocomplete.getPlace();
+            if (place.geometry) {
+                const lat = place.geometry.location.lat();
+                const lng = place.geometry.location.lng();
+                
+                // Actualizar el mapa y el marcador
+                map.setCenter(place.geometry.location);
+                map.setZoom(13);
+                marker.setPosition(place.geometry.location);
+
+                // Actualizar los campos de latitud y longitud
+                document.getElementById('Form-field-Product-latitude').value = lat;
+                document.getElementById('Form-field-Product-longitude').value = lng;
+            } else {
+                alert("Dirección no encontrada.");
+            }
+        });
+    });
+</script>
